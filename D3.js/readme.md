@@ -37,3 +37,20 @@ https://learn.freecodecamp.org/data-visualization/data-visualization-with-d3/add
 ```
 
 https://www.npmjs.com/package/d3-node
+
+
+## bar and scatter plot charts
+
+> 条形图和散点图
+
+## Axes
+
+Axes is the plural form of axis
+
+> 轴是轴的复数形式
+
+```js
+
+```
+
+https://github.com/freeCodeCamp/learn/tree/master/src/introductions/data-visualization
