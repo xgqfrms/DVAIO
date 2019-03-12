@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="xgqfrms">
+    <meta name="generator" content="VS code">
+    <title>canvas to image</title>
+</head>
+<body>
+    <section>
+        <canvas id="canvas"></canvas>
+    </section>
+    <!-- js -->
+    <script>
+        //
+        const canvas = document.getElementById(`canvas`);
+        const ctx = canvas.getContext(`2d`);
+        // 
+        ctx.fillStyle = `green`;
+        ctx.fillRect(10, 10, 150, 100);
+        //
+        setTimeout(() => {
+            // let canvas = document.getElementById("canvas");
+            let base64URL = canvas.toDataURL("image/png");
+            console.log(`base64URL =`, base64URL);
+            // let img = document.createElement(`img`);
+            // img.src = base64URL;
+            // img.download;
+            let aTag = document.createElement(`a`);
+            aTag.setAttribute(`href`, base64URL);
+            // aTag.setAttribute(`href`, canvas.toDataURL("image/png"));
+            aTag.download = "canvas-to-image.png";
+            aTag.click();
+        }, 3000);
+        // setTimeout(() => {
+        //     let canvas = document.getElementById("canvas");
+        //     let img = canvas.toDataURL("image/png");
+        //     console.log(`img =`, img);
+        //     // with the value in IMG you can write it out as a new Image like so:
+        //     document.write(`<img src="${img}" />`);
+        // }, 3000);
+    </script>
+</body>
+</html>

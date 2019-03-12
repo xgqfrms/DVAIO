@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="xgqfrms">
+    <meta name="generator" content="VS code">
+    <title>svg to canvas</title>
+    <style>
+        .auto-hidden{
+            display: none;
+            /* visibility: hidden; */
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <svg width="500" height="100">
+            <rect x="0" y="64" width="25" height="36" fill="navy"></rect><rect x="30" y="7" width="25" height="93" fill="navy"></rect><rect x="60" y="34" width="25" height="66" fill="navy"></rect><rect x="90" y="49" width="25" height="51" fill="navy"></rect><rect x="120" y="25" width="25" height="75" fill="navy"></rect><rect x="150" y="46" width="25" height="54" fill="navy"></rect><rect x="180" y="13" width="25" height="87" fill="navy"></rect><rect x="210" y="58" width="25" height="42" fill="navy"></rect><rect x="240" y="73" width="25" height="27" fill="navy"></rect><text x="0" y="61" width="25" height="36" class="high-light-color">¥12</text><text x="30" y="4" width="25" height="93" class="high-light-color">¥31</text><text x="60" y="31" width="25" height="66" class="high-light-color">¥22</text><text x="90" y="46" width="25" height="51" class="high-light-color">¥17</text><text x="120" y="22" width="25" height="75" class="high-light-color">¥25</text><text x="150" y="43" width="25" height="54" class="high-light-color">¥18</text><text x="180" y="10" width="25" height="87" class="high-light-color">¥29</text><text x="210" y="55" width="25" height="42" class="high-light-color">¥14</text><text x="240" y="70" width="25" height="27" class="high-light-color">¥9</text>
+        </svg>
+        <canvas id="canvas" class=""></canvas>
+        <!-- <canvas id="canvas" class="auto-hidden"></canvas> -->
+    </section>
+    <!-- js -->
+    <script>
+        //
+        const canvas = document.getElementById(`canvas`);
+        const ctx = canvas.getContext(`2d`);
+        // rect
+        // ctx.fillStyle = `green`;
+        // ctx.fillRect(10, 10, 150, 100);
+        // image
+        let svg = document.querySelector(`svg`);
+        // let svg = document.createElement(`svg`);
+        // ctx.drawImage(imageResource, dx, dy, dWidth, dHeight);
+        // console.log(`svg.width =`, svg.width);
+        // console.log(`vg.height =`, svg.height);
+        let svgURL = new XMLSerializer().serializeToString(svg);
+        let img = new Image();
+        img.onload = function(){
+            // console.log(`this =`, this);
+            // img
+            ctx.drawImage(this, 0, 0);
+            // callback();
+        }
+        img.src = `data:image/svg+xml; charset=utf8, ` + encodeURIComponent(svgURL);
+        // ctx.drawImage(svg, 0, 0, svg.width, svg.height);
+        // svg-to-canvas.html:39
+        // Uncaught TypeError: Failed to execute 'drawImage' on 'CanvasRenderingContext2D': 
+        // The provided value is not of type '(
+        // CSSImageValue or HTMLImageElement or SVGImageElement or HTMLVideoElement or HTMLCanvasElement or ImageBitmap or OffscreenCanvas
+        // )'
+        const callback = () => {
+            setTimeout(() => {
+                // let canvas = document.getElementById("canvas");
+                let base64URL = canvas.toDataURL("image/png");
+                console.log(`base64URL =`, base64URL);
+                // let img = document.createElement(`img`);
+                // img.src = base64URL;
+                // img.download;
+                let aTag = document.createElement(`a`);
+                aTag.setAttribute(`href`, base64URL);
+                // aTag.setAttribute(`href`, canvas.toDataURL("image/png"));
+                aTag.download = "svg-to-canvas.png";
+                aTag.click();
+                setTimeout(() => {
+                    canvas.setAttribute(`class`, "auto-hidden");
+                }, 1000);
+            }, 1000);
+        };
+        // setTimeout(() => {
+        //     let canvas = document.getElementById("canvas");
+        //     let img = canvas.toDataURL("image/png");
+        //     console.log(`img =`, img);
+        //     // with the value in IMG you can write it out as a new Image like so:
+        //     document.write(`<img src="${img}" />`);
+        // }, 3000);
+    </script>
+</body>
+</html>
