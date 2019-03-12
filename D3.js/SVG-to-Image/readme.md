@@ -24,3 +24,18 @@ function onTempImageLoad(e){
 }
 
 ```
+
+
+## canvas.toDataURL & svg
+
+https://github.com/sampumon/SVG.toDataURL
+
+https://stackoverflow.com/questions/3173048/is-there-an-equivalent-of-canvass-todataurl-method-for-svg
+
+不能使用SVG图像元素作为drawImage方法的源的原因很简单，但很痛苦
+
+https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/110935/
+
+https://stackoverflow.com/questions/33972254/svgpng-from-canvas-todataurl-throws-dom-exception-18-security-error-in-safari-9
+
+
