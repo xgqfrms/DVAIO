@@ -76,6 +76,7 @@ let padding = {
 // select root DOM & 设置 svg size
 let svg = d3.select(`[data-dom="body"]`)
             .append("svg")
+            .attr("style", `border: 1px solid red;`)
             .attr("width", `${width + padding.left}px`)
             // .attr("width", width + padding.left)
             .attr("height", height + padding.bottom * 2);
@@ -103,7 +104,7 @@ g.append("g")
     .call(d3.axisLeft(y).ticks(10));
 
 
-chart = g.selectAll(".bar")
+let chart = g.selectAll(".bar")
         .data(data)
         .enter()
         .append("g");
@@ -120,32 +121,40 @@ chart = g.selectAll(".bar")
 //     .attr("y", function(d) {return y(d.value);})
 //     .attr("width", x.bandwidth()).attr("height", function(d) {return height - y(d.value)});
 
-// 矩形
+// rect
 chart.append("rect")
     .attr("x", d => x(d.key))
     .attr("cursor", "pointer")
     .attr("y", d => y(y.domain()[0]))
     .attr("fill", d => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`)
-    .transition().delay(function(d, i) {return (i + 1) * 50}).duration(2000).ease(d3.easeBounceIn)
+    // .transition()
+    // .delay((d, i) => (i + 1) * 50)
+    // .duration(2000)
+    // .ease(d3.easeBounceIn)
     .attr("y", d => y(d.value))
     .attr("width", x.bandwidth())
     .attr("height", d => height - y(d.value));
 
-// 矩形文字
+// text
 chart.append("text")
     .attr("fill", "#FFF")
-    .attr("x", function(d) {return x(d.key) + 14;})
-    .attr("y", function(d) {return y(y.domain()[0]);})
-    .transition().delay(function(d, i) {return (i + 1) * 100}).duration(2000).ease(d3.easeBounceIn)
-    .attr("y", function(d) {return y(d.value);})
-    .attr("dx", function(d) {return (x.bandwidth() - padding.left) / 2;}).attr("dy", 20)
-    .text(function(d) {return d.value});
+    .attr("x", d => x(d.key) + 14)
+    .attr("y", d => y(y.domain()[0]))
+    // .transition()
+    // .delay((d, i) => (i + 1) * 100)
+    // .duration(2000)
+    // .ease(d3.easeBounceIn)
+    .attr("y", d => y(d.value))
+    .attr("dx", d => (x.bandwidth() - padding.left) / 2)
+    .attr("dy", 20)
+    .text(d => d.value);
 
-// 悬浮提示框
-tooltip = d3.select("body").append("div");
+// tooltip
+let tooltip = d3.select("body").append("div");
 
-// hover事件
-chart.on("mouseover", function() {
+// mouse event
+chart
+    .on("mouseover", function() {
         d3.select(this)
             .attr("opacity", 0.5);
         // 悬浮在直方图上时，显示提示框
@@ -155,16 +164,18 @@ chart.on("mouseover", function() {
             .style("left", d3.event.pageX - 20)
             .style("top", d3.event.pageY + 20)
             .style("opacity", 1.0);
-    }).on("mouseout", function() {
+    })
+    .on("mouseout", function() {
         d3.select(this)
             .transition()
             .delay(100)
             .duration(500)
             .attr("opacity", 1.0);
-});
+    });
 
 // 当鼠标移出svg画布时，就将提示框隐藏掉，考虑到鼠标移出时显示的动画还未完成，需要加transition()过滤
-svg.on("mouseout", function() {
-    tooltip.transition()
+svg
+    .on("mouseout", function() {
+        tooltip.transition()
             .style("opacity", 0);
-});
+    });
