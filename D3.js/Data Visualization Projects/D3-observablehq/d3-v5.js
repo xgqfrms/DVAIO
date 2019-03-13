@@ -92,29 +92,44 @@ g.append("text")
     .attr("margin-bottom", 80)
     .text("D3.js Bar Chart");
 
-// x轴和y轴
+// x轴  & rotate
 g.append("g")
-    .attr("transform", "translate(0," + height + ")")
+    // .attr("transform", "translate(0," + height + ")")
+    .attr("transform", `translate(0, ${height})`)
     .call(d3.axisBottom(x));
 
+// y轴 & ticks(10)
 g.append("g")
     .call(d3.axisLeft(y).ticks(10));
+
 
 chart = g.selectAll(".bar")
         .data(data)
         .enter()
         .append("g");
 
+// // 矩形
+// chart.append("rect")
+//     .attr("x", d => d.value)
+//     .attr("cursor", "pointer")
+//     // ???
+//     .attr("y", d => y(y.domain()[0]))
+//     // RGB color & 16777215 === 0xffffff
+//     .attr("fill", d => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`)
+//     .transition().delay(function(d, i) {return (i + 1) * 50}).duration(2000).ease(d3.easeBounceIn)
+//     .attr("y", function(d) {return y(d.value);})
+//     .attr("width", x.bandwidth()).attr("height", function(d) {return height - y(d.value)});
+
 // 矩形
 chart.append("rect")
-    .attr("x", function(d) {return x(d.key);}).attr("cursor", "pointer")
-    .attr("y", function(d) {return y(y.domain()[0]);})
-    .attr("fill", function(d) {
-        return "#"+Math.floor(Math.random()*0xffffff).toString(16);
-    })
+    .attr("x", d => x(d.key))
+    .attr("cursor", "pointer")
+    .attr("y", d => y(y.domain()[0]))
+    .attr("fill", d => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`)
     .transition().delay(function(d, i) {return (i + 1) * 50}).duration(2000).ease(d3.easeBounceIn)
-    .attr("y", function(d) {return y(d.value);})
-    .attr("width", x.bandwidth()).attr("height", function(d) {return height - y(d.value)});
+    .attr("y", d => y(d.value))
+    .attr("width", x.bandwidth())
+    .attr("height", d => height - y(d.value));
 
 // 矩形文字
 chart.append("text")
