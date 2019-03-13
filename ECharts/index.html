@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="xgqfrms">
+    <meta name="generator" content="VS code">
+    <title>ECharts</title>
+</head>
+<body>
+    <section>
+        <!-- container -->
+        <div id="main" style="width: 600px; height:400px;"></div>
+    </section>
+    <!-- libs -->
+    <script src="./libs/echarts.min.js"></script>
+    <!-- js -->
+    <script>
+        // init
+        let myChart = echarts.init(document.getElementById(`main`));
+        // 配置项和数据
+        let option = {
+            title: {
+                text: "ECharts Demo"
+            },
+            tooltip: {},
+            legend: {
+                data:["销量"]
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: "销量",
+                type: "bar",
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+        // 显示图表
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
