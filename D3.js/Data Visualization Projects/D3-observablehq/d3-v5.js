@@ -1,48 +1,48 @@
 
-// 数据
+// 数据 dataset
 let data = [
     {
-        key: "aa",
+        key: "a",
         value: 32
     },
     {
-        key: "bb",
+        key: "b",
         value: 26
     },
     {
-        key: "cc",
+        key: "c",
         value: 45
     },
     {
-        key: "dd",
+        key: "d",
         value: 38
     },
     {
-        key: "ee",
+        key: "e",
         value: 52
     },
     {
-        key: "ff",
+        key: "f",
         value: 48
     },
     {
-        key: "gg",
+        key: "g",
         value: 50
     },
     {
-        key: "hh",
+        key: "h",
         value: 34
     },
     {
-        key: "ii",
+        key: "i",
         value: 37
     },
     {
-        key: "jj",
+        key: "j",
         value: 36
     },
     {
-        key: "kk",
+        key: "k",
         value: 40
     },
 ];
@@ -73,19 +73,24 @@ let padding = {
     bottom: 50
 };
 
-let svg = d3.select("body")
+// select root DOM & 设置 svg size
+let svg = d3.select(`[data-dom="body"]`)
             .append("svg")
-            .attr("width", width + padding.left)
-            .attr("height", height + padding.bottom);
-
+            .attr("width", `${width + padding.left}px`)
+            // .attr("width", width + padding.left)
+            .attr("height", height + padding.bottom * 2);
+// group box
 let g = svg.append("g")
-            .attr("transform", "translate(" + padding.left + "," + padding.top + ")");
+            // .attr("transform", "translate(" + padding.left + "," + padding.top + ")");
+            .attr("transform", `translate(${padding.left}, ${padding.left + padding.top})`);
 
-// 表头
+// title
 g.append("text")
-    .attr("transform", "translate(" + (width/2 - padding.left) + ",0)")
+    // .attr("transform", "translate(" + (width/2 - padding.left) + ",0)")
+    .attr("transform", `translate(${width / 2 - padding.left}, -30)`)
     .attr("font-weight", 600)
-    .text("D3.js 直方图");
+    .attr("margin-bottom", 80)
+    .text("D3.js Bar Chart");
 
 // x轴和y轴
 g.append("g")
