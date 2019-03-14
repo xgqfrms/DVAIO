@@ -1,4 +1,4 @@
-.DS_Store
+*.DS_Store
 /dist/
 
 # Logs
@@ -62,4 +62,4 @@ typings/
 
 # next.js build output
 .next
-.DS_Store
+
